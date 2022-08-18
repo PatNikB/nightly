@@ -1,0 +1,30 @@
+{
+  "name": "nightly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "",
+    "prod": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatNikB/nightly.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Nikesh B Patel"
+  },
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/PatNikB/nightly/issues"
+  },
+  "homepage": "https://github.com/PatNikB/nightly#readme",
+  "dependencies": {
+    "braintree": "^3.12.0"
+  }
+}
