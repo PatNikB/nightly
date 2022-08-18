@@ -12,6 +12,11 @@ function braintreeAPI(){
     return oGateway;
 
 }
+
+function getTransactionsFromBraintreeFromDateCreated( date ){
+
+}
 module.exports = {
-    braintreeAPI
+    braintreeAPI,
+    getTransactionsFromBraintreeFromDateCreated
 };
