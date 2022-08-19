@@ -27,20 +27,30 @@ describe ( 'getTransactionsFromBraintreeBetweenDates', async () => {
 
 } );
 
-describe ( 'getDetailsFromBraintreeTransactions', async () => {
+describe ( 'getTransactionDetailsFromTransactionId', async () => {
+    let strTransactionId = '9gxprs0h';
 
-    let strStartDateTime = '2022/08/18 00:00';
-    let strEndDateTime = '2022/08/18 23:59:59';
-
-    const oTransactions = null;
-
-    it( `should request transactions from braintree between ${strStartDateTime} and ${strEndDateTime}`, async () => {
-        const oResponse = await app.getTransactionsFromBraintreeBetweenDates( strStartDateTime, strEndDateTime );
-        assert.ok( oResponse.success == true );
-        oTransactions = oResponse;
+    it( `should get transaction details for the id ${strTransactionId}`, async () => {
+        const oTransactionDetailsResponse = await app.getTransactionDetailsFromTransactionId( strTransactionId );
     } );
 
-    it ('should extract all details for each transaction retrieved from braintree into an object', async () =>{
+} );
 
+describe ( 'getTransactionDetailsFromBraintreeTransactionIds', async () => {
+
+    let strStartDateTime = '2022/08/18 00:00:00';
+    let strEndDateTime = '2022/08/18 23:59:59';
+    let arrTransactionId = null;
+    
+    it( `should request transactions from braintree between ${strStartDateTime} and ${strEndDateTime}`, async () => {
+        const oTransactionSearchResponse = await app.getTransactionsFromBraintreeBetweenDates( strStartDateTime, strEndDateTime );
+        assert.ok( oTransactionSearchResponse.success == true );
+        arrTransactionId = oTransactionSearchResponse.ids;
+    } );
+
+
+    it ('should extract all details for each transaction retrieved from braintree into an object', async () =>{
+        // app.getTransactionDetailsFromBraintreeTransactionIds( arrTransactionId );
+        
     } );
 } );

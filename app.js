@@ -39,10 +39,30 @@ function getTransactionsFromBraintreeBetweenDates( startDateTime, endDateTime ){
             }
         } );
     } );
+}
 
+function getTransactionDetailsFromTransactionId( strTransactionId ){
+
+}
+
+function getTransactionDetailsFromBraintreeTransactionIds( arrTransactionId ){
+
+    // for each transactionID
+
+    // get transaction details from braintree
+
+    // return object
+
+}
+
+// convertToMerlinDiscountId
+
+function logTransactionId(){
 
 }
 module.exports = {
     braintreeAPI,
-    getTransactionsFromBraintreeBetweenDates
+    getTransactionsFromBraintreeBetweenDates,
+    getTransactionDetailsFromTransactionId,
+    getTransactionDetailsFromBraintreeTransactionIds
 };
