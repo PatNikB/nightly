@@ -32,6 +32,18 @@ describe ( 'getTransactionDetailsFromTransactionId', async () => {
 
     it( `should get transaction details for the id ${strTransactionId}`, async () => {
         const oTransactionDetailsResponse = await app.getTransactionDetailsFromTransactionId( strTransactionId );
+        // console.log(oTransactionDetailsResponse);
+    } );
+
+    // consider using chai
+    let strFalseTransactionId = '1abcde0f'
+    it( `should return notFoundError as the transaction ID ${strFalseTransactionId} does not exist`, async () => {
+        return app.getTransactionDetailsFromTransactionId( strFalseTransactionId )
+        .then(
+            () => Promise.reject( new Error('Expected method to reject.') ),
+            err => assert.ok(err, Error)
+            
+        );
     } );
 
 } );

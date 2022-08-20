@@ -29,11 +29,11 @@ function getTransactionsFromBraintreeBetweenDates( startDateTime, endDateTime ){
             search.createdAt().between( startDateTime, endDateTime );
         }, ( err, transactions ) => {
             console.log('\n Making call to get transactions from braintree.');
-            if ( !transactions ){
+            if ( err ){
                 console.log( 'getTransactionsFromBraintreeBetweenDates: call failed' );
                 reject( err );
             }
-            else if ( !err ){
+            else if ( transactions ){
                 console.log( 'getTransactionsFromBraintreeBetweenDates: call succeeded ' );
                 resolve( transactions );
             }
@@ -42,6 +42,21 @@ function getTransactionsFromBraintreeBetweenDates( startDateTime, endDateTime ){
 }
 
 function getTransactionDetailsFromTransactionId( strTransactionId ){
+    const oGateway = braintreeAPI();
+    return new Promise( (resolve, reject) => {
+        oGateway.transaction.find( strTransactionId, 
+            ( err, transaction ) => {
+                console.log(`\n Making call to get a transaction from braintree using the transaction ID: ${strTransactionId} `);
+                if ( err ){
+                    console.log( 'getTransactionDetailsFromTransactionId: call failed ' );
+                    reject( err );
+                }
+                else if ( transaction ){
+                    console.log( 'getTransactionDetailsFromTransactionId: call succeeded ' );
+                    resolve( transaction );
+                }
+            } );
+    } );
 
 }
 
