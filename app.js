@@ -60,17 +60,33 @@ function getTransactionDetailsFromTransactionId( strTransactionId ){
 
 }
 
-function getTransactionDetailsFromBraintreeTransactionIds( arrTransactionId ){
+function verifyTransaction( oTransactionDetails ){
+    let strDiscountID = null;
+    let strPaymentInstrumentType = null;
+    let strCardType = null;
+    let strPayPalFeeAmount = null;
+    let strCustomerEmail = null;
+    let strSubscriptionYear = null;
 
-    // for each transactionID
+    let strOutputMessage = '';
 
-    // get transaction details from braintree
 
-    // return object
+    if ( !oTransactionDetails.subscriptionId ){
+        return false;
+    }
+
+    if ( oTransactionDetails.customer.website ){
+
+    }
+
+
 
 }
 
-// convertToMerlinDiscountId
+function getSubscriptionBillingCycle( strSubscriptionId ){
+    
+}
+
 
 function logTransactionId(){
 
@@ -79,5 +95,5 @@ module.exports = {
     braintreeAPI,
     getTransactionsFromBraintreeBetweenDates,
     getTransactionDetailsFromTransactionId,
-    getTransactionDetailsFromBraintreeTransactionIds
+    verifyTransaction
 };

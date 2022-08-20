@@ -32,7 +32,9 @@ describe ( 'getTransactionDetailsFromTransactionId', async () => {
 
     it( `should get transaction details for the id ${strTransactionId}`, async () => {
         const oTransactionDetailsResponse = await app.getTransactionDetailsFromTransactionId( strTransactionId );
-        // console.log(oTransactionDetailsResponse);
+        // console.log("json: %j", oTransactionDetailsResponse);
+        assert.ok( oTransactionDetailsResponse.id == strTransactionId );
+        assert.ok( oTransactionDetailsResponse.customer.id == "651516905" );
     } );
 
     // consider using chai
@@ -48,21 +50,39 @@ describe ( 'getTransactionDetailsFromTransactionId', async () => {
 
 } );
 
-describe ( 'getTransactionDetailsFromBraintreeTransactionIds', async () => {
-
-    let strStartDateTime = '2022/08/18 00:00:00';
-    let strEndDateTime = '2022/08/18 23:59:59';
-    let arrTransactionId = null;
+describe ( 'verifyTransaction', async () => {
+    //get sampleTransactionDetails from json file
+    // const fs = require( 'fs' );
     
-    it( `should request transactions from braintree between ${strStartDateTime} and ${strEndDateTime}`, async () => {
-        const oTransactionSearchResponse = await app.getTransactionsFromBraintreeBetweenDates( strStartDateTime, strEndDateTime );
-        assert.ok( oTransactionSearchResponse.success == true );
-        arrTransactionId = oTransactionSearchResponse.ids;
-    } );
+    // let strTransactionExampleJson = fs.readFileSync( './oTransactionExample.json' );
+    // let oTransactionDetailsExample = JSON.parse( strTransactionExampleJson );
 
+    let strTransactionId = '9gxprs0h';
+    oTransactionDetailsExample = await app.getTransactionDetailsFromTransactionId( strTransactionId );
 
-    it ('should extract all details for each transaction retrieved from braintree into an object', async () =>{
-        // app.getTransactionDetailsFromBraintreeTransactionIds( arrTransactionId );
+    it( `should verify transaction and return an object`, async () => {
         
     } );
+
 } );
+
+
+// describe ( 'overnightRun', async () => {
+
+//     let strStartDateTime = '2022/08/18 00:00:00';
+//     let strEndDateTime = '2022/08/18 23:59:59';
+//     let arrTransactionId = null;
+    
+//     it( `should request transactions from braintree between ${strStartDateTime} and ${strEndDateTime}`, async () => {
+//         const oTransactionSearchResponse = await app.getTransactionsFromBraintreeBetweenDates( strStartDateTime, strEndDateTime );
+//         assert.ok( oTransactionSearchResponse.success == true );
+//         arrTransactionId = oTransactionSearchResponse.ids;
+//     } );
+
+
+//     it ('should extract all details for each transaction retrieved from braintree into an object', async () =>{
+//         // for each arrTransactionId
+//         // app.overnightRun( arrTransactionId );
+        
+//     } );
+// } );
