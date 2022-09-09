@@ -66,40 +66,82 @@ describe ( 'verifyTransaction', async () => {
 
 } );
 
-describe ( 'checkFileExists', async () => {
+describe ( 'checkFileOrDirectoryExists', async () => {
     const strPath = require('path');
-    const strCronLogPath = strPath.join(__dirname, '../logs/cron-log/cron20220908.log');
-    const strFinanceReportPath = strPath.join(__dirname, '../logs/finance-report/finance-report20220908.csv');
-    const strSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220908.json');
-    const strFalseSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220907.json');
 
+    const strCronLogPath = strPath.join(__dirname, '../logs/cron-log/cron20220908.log');
     it( `should check if log file in /logs/cron-log exists`, async () => {
         console.log(strCronLogPath);
-        assert.ok( await app.checkFileExists( strCronLogPath ) );
+        assert.ok( await app.checkFileOrDirectoryExists( strCronLogPath ) );
     } );
 
+    const strFinanceReportPath = strPath.join(__dirname, '../logs/finance-report/finance-report20220908.csv');
     it( `should check if csv file in /logs/finance-report exists`, async () => {
         console.log(strFinanceReportPath);
-        assert.ok( await app.checkFileExists( strFinanceReportPath ) );
+        assert.ok( await app.checkFileOrDirectoryExists( strFinanceReportPath ) );
     } );
 
+    const strSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220908.json');
     it( `should check if json file in /logs/system-logs exists`, async () => {
         console.log(strSystemLogsPath);
-        assert.ok( await app.checkFileExists( strSystemLogsPath ) );
+        assert.ok( await app.checkFileOrDirectoryExists( strSystemLogsPath ) );
     } );
-    
+
+    const strFalseSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220907.json');
     it( `should check if json file in /logs/system-logs does not exist`, async () => {
         console.log(strFalseSystemLogsPath);
-        assert.rejects( await app.checkFileExists( strFalseSystemLogsPath ) );
+        assert.rejects( await app.checkFileOrDirectoryExists( strFalseSystemLogsPath ) );
+    } );
+
+    const strCronLogDirectory = strPath.join(__dirname, '../logs/cron-log/');
+    it ( `should check if /logs/cron-log directory exists`, async () => {
+        console.log(strCronLogDirectory);
+        assert.ok( await app.checkFileOrDirectoryExists( strCronLogDirectory ) );
+    } );
+    
+    const strFinanceReportDirectory = strPath.join(__dirname, '../logs/finance-report');
+    it ( `should check if /logs/finance-report directory exists`, async () => {
+        console.log(strFinanceReportDirectory);
+        assert.ok( await app.checkFileOrDirectoryExists( strFinanceReportDirectory ) );
+    } );
+
+    const strSystemLogsDirectory = strPath.join(__dirname, '../logs/system-logs');
+    it ( `should check if /logs/system-logs directory exists`, async () => {
+        console.log(strSystemLogsDirectory);
+        assert.ok( await app.checkFileOrDirectoryExists( strSystemLogsDirectory ) );
     } );
 } );
 
-// describe ( 'createLogFile', async () => {
+describe ( 'createLogFile', async () => {
+    const strPath = require('path');
+    const date = new Date();
+    const datYear = date.getUTCFullYear();
+    let datMonth = date.getUTCMonth() + 1;
+    const datDay = date.getUTCDate();
 
-//     it (`should create json file`, async () => {
+    const strYearMonthDay = datYear.toString() + datMonth.toString() + datDay.toString();
+    
+    const systemLogFileDirectory = strPath.join(__dirname, '../logs/system-logs/');
+    const strFullPath = systemLogFileDirectory + strYearMonthDay + '.json';
 
-//     } );
-// } );
+    const oSystemLogFileDetails = {
+        "directory"     : systemLogFileDirectory,
+        "fileName"      : "",
+        "fileExtension" : ".json"
+    };
+
+    it (`should create json log file in system-logs`, async () => {
+        const response = await app.createLogFile( oSystemLogFileDetails );
+        const expectedResponse = `log file: ${strFullPath} created`;
+        assert.equal( response, expectedResponse );
+    } );
+
+    it ('should delete the test json log file', async () => {
+        const deleteFileResponse = await app.deleteFile( strFullPath );
+        assert.equal( deleteFileResponse, true )
+    });
+    
+} );
 
 
 // describe ( 'overnightRun', async () => {

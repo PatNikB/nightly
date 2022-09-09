@@ -91,10 +91,11 @@ function getSubscriptionBillingCycle( strSubscriptionId ){
 
 
 function logTransactionId(){
+    // saves the id of each transaction that is retrieved and processed by nightly
 
 }
 
-async function checkFileExists ( strPath ){
+async function checkFileOrDirectoryExists( strPath ){
     try {
         await Fs.access( strPath );
         return true;
@@ -104,13 +105,59 @@ async function checkFileExists ( strPath ){
     }
 }
 
-function createLogFile( strFileName ){
-    
+// async function initialiseLoggingDirectories(){
+//     // check what directories are missing
+
+//     //create directory and the respective .gitkeep file and example file
+// }
+
+async function createLogFile( oFileDetails ){
+    const date = new Date();
+    const datYear = date.getUTCFullYear();
+    let datMonth = date.getUTCMonth() + 1;
+    const datDay = date.getUTCDate();
+
+    const strYearMonthDay = datYear.toString() + datMonth.toString() + datDay.toString();
+    if ( !( await checkFileOrDirectoryExists( oFileDetails.directory ) ) ){
+        console.log("directory does not exist");
+        return 'directory does not exist';
+    }
+
+    const strFullPath = oFileDetails.directory + oFileDetails.fileName + strYearMonthDay + oFileDetails.fileExtension;
+    if ( await checkFileOrDirectoryExists( strFullPath ) ) {
+        console.log("file already exists");
+        return 'file already exists';
+    }
+
+    try {
+        await Fs.open(strFullPath , 'w' );
+        return `log file: ${strFullPath} created`
+    } 
+    catch {
+        return 'failed to create file';
+    }
+
+}
+
+async function deleteFile( strFilePath ){
+    try {
+        Fs.unlink( strFilePath );
+        return true;
+    } 
+    catch {
+        return false;
+    }
+}
+
+function updateLogFile( oFileDetails ){
+
 }
 module.exports = {
     braintreeAPI,
     getTransactionsFromBraintreeBetweenDates,
     getTransactionDetailsFromTransactionId,
     verifyTransaction,
-    checkFileExists
+    checkFileOrDirectoryExists,
+    createLogFile,
+    deleteFile
 };
