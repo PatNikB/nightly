@@ -66,6 +66,36 @@ describe ( 'verifyTransaction', async () => {
 
 } );
 
+describe ( 'checkFileExists', async () => {
+    const strPath = require('path');
+    const strCronLogPath = strPath.join(__dirname, '../logs/cron-log/cron20220908.log');
+    const strFinanceReportPath = strPath.join(__dirname, '../logs/finance-report/finance-report20220908.csv');
+    const strSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220908.json');
+
+    it( `should check if log file in /logs/cron-log exists`, async () => {
+        console.log(strCronLogPath);
+        assert.ok( await app.checkFileExists( strCronLogPath ) );
+    } );
+
+    it( `should check if csv file in /logs/finance-report exists`, async () => {
+        console.log(strFinanceReportPath);
+        assert.ok( await app.checkFileExists( strFinanceReportPath ) );
+    } );
+
+    it( `should check if json file in /logs/system-logs exists`, async () => {
+        console.log(strSystemLogsPath);
+        assert.ok( await app.checkFileExists( strSystemLogsPath ) );
+    } );
+
+} );
+
+// describe ( 'createLogFile', async () => {
+
+//     it (`should create json file`, async () => {
+
+//     } );
+// } );
+
 
 // describe ( 'overnightRun', async () => {
 

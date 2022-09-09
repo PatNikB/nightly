@@ -1,3 +1,5 @@
+const { promises: Fs } = require('fs')
+
 function braintreeAPI(){
     require( 'dotenv').config(); 
     const braintree = require("braintree");
@@ -91,9 +93,24 @@ function getSubscriptionBillingCycle( strSubscriptionId ){
 function logTransactionId(){
 
 }
+
+async function checkFileExists ( strPath ){
+    try {
+        await Fs.access( strPath );
+        return true;
+    }
+    catch{
+        return false;
+    }
+}
+
+function createLogFile( strFileName ){
+    
+}
 module.exports = {
     braintreeAPI,
     getTransactionsFromBraintreeBetweenDates,
     getTransactionDetailsFromTransactionId,
-    verifyTransaction
+    verifyTransaction,
+    checkFileExists
 };

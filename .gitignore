@@ -2,3 +2,9 @@
 test/oTransactionExample.json
 /app-functions.js
 /test-code
+/logs/cron-log/**/*.log
+/logs/finance-report/**/*.csv
+/logs/system-logs/**/*.json
+!/logs/cron-log/.gitkeep
+!/logs/finance-report/.gitkeep
+!/logs/system-logs/.gitkeep
