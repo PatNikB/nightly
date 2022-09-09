@@ -71,6 +71,7 @@ describe ( 'checkFileExists', async () => {
     const strCronLogPath = strPath.join(__dirname, '../logs/cron-log/cron20220908.log');
     const strFinanceReportPath = strPath.join(__dirname, '../logs/finance-report/finance-report20220908.csv');
     const strSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220908.json');
+    const strFalseSystemLogsPath = strPath.join(__dirname, '../logs/system-logs/20220907.json');
 
     it( `should check if log file in /logs/cron-log exists`, async () => {
         console.log(strCronLogPath);
@@ -86,7 +87,11 @@ describe ( 'checkFileExists', async () => {
         console.log(strSystemLogsPath);
         assert.ok( await app.checkFileExists( strSystemLogsPath ) );
     } );
-
+    
+    it( `should check if json file in /logs/system-logs does not exist`, async () => {
+        console.log(strFalseSystemLogsPath);
+        assert.rejects( await app.checkFileExists( strFalseSystemLogsPath ) );
+    } );
 } );
 
 // describe ( 'createLogFile', async () => {
