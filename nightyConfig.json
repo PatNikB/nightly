@@ -1,0 +1,16 @@
+{
+    "creditCardProviderList": [
+        "credit_card",
+        "masterpass_card",
+        "visa_checkout_card"
+    ],
+    "braintreeTransactionStatusCodes": [
+        "authorization_expired",
+        "gateway_rejected",
+        "failed",
+        "processor_declined",
+        "voided",
+        "unrecognized",
+        "settlement_declined"
+    ]
+}

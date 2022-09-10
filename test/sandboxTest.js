@@ -23,6 +23,7 @@ describe ( 'getTransactionsFromBraintreeBetweenDates', async () => {
     it( 'should request for any transactions made yesterday', async () => {
         const oResponse = await app.getTransactionsFromBraintreeBetweenDates( datYesterdayMidnight, datToday );
         assert.ok( oResponse.success == true );
+        // console.log(oResponse.ids);
     } );
 
 } );
@@ -35,6 +36,7 @@ describe ( 'getTransactionDetailsFromTransactionId', async () => {
         // console.log("json: %j", oTransactionDetailsResponse);
         assert.ok( oTransactionDetailsResponse.id == strTransactionId );
         assert.ok( oTransactionDetailsResponse.customer.id == "651516905" );
+        console.log(oTransactionDetailsResponse);
     } );
 
     // consider using chai
@@ -143,6 +145,15 @@ describe ( 'createLogFile', async () => {
     
 } );
 
+describe ( 'getJsonObjectFromJsonFile', async () => {
+    const strPath = require('path');
+    const strFilePath = strPath.join(__dirname, '../nightyConfig.json');
+    it (`should retrieve a json object from a json file`, async () => {
+        const oJson = await app.getJsonObjectFromJsonFile( strFilePath );
+        const parsed = JSON.parse( oJson );
+        console.log( parsed.creditCardProviderList );
+    });
+} );
 
 // describe ( 'overnightRun', async () => {
 

@@ -1,6 +1,7 @@
 .env
 test/oTransactionExample.json
-/app-functions.js
+/businessFunctions.js
+/test/businessFunctionsTest.js
 /test-code
 /logs/cron-log/**/*.log
 /logs/finance-report/**/*.csv

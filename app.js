@@ -85,6 +85,26 @@ function verifyTransaction( oTransactionDetails ){
 
 }
 
+function getCardTypeFromTransactionRecord( oTransaction ){
+    // if ( isset( $transaction->creditCard ) && ( in_array( $strPaymentInstrumentType, $creditCardProviderList) ) ){
+    //     $strCardType = $transaction->creditCard['cardType'];
+    // }
+    // elseif ( isset( $transaction->googlePayCardDetails ) ){
+    //     $strCardType = $transaction->googlePayCardDetails->sourceCardType;
+    // }
+    // elseif ( isset( $transaction->applePay )){
+    //     $strCardType = $transaction->applePay['cardType'];
+    // }
+    // else{
+    //     $strCardType = 'N/A';
+    // }
+
+    if ( oTransaction.creditCard && (oTransaction.paymentInstrumentType)){
+
+    }
+
+}
+
 function getSubscriptionBillingCycle( strSubscriptionId ){
     
 }
@@ -119,13 +139,11 @@ async function createLogFile( oFileDetails ){
 
     const strYearMonthDay = datYear.toString() + datMonth.toString() + datDay.toString();
     if ( !( await checkFileOrDirectoryExists( oFileDetails.directory ) ) ){
-        console.log("directory does not exist");
         return 'directory does not exist';
     }
 
     const strFullPath = oFileDetails.directory + oFileDetails.fileName + strYearMonthDay + oFileDetails.fileExtension;
     if ( await checkFileOrDirectoryExists( strFullPath ) ) {
-        console.log("file already exists");
         return 'file already exists';
     }
 
@@ -149,6 +167,17 @@ async function deleteFile( strFilePath ){
     }
 }
 
+async function getJsonObjectFromJsonFile ( strFilePath ){
+    if ( !( await checkFileOrDirectoryExists( strFilePath ) ) ){
+        return 'directory or file is not found';
+    }
+
+    return new Promise( ( resolve, reject ) => {
+        const oJson = Fs.readFile( strFilePath, 'utf8' );
+        resolve ( oJson );
+    } );
+}
+
 function updateLogFile( oFileDetails ){
 
 }
@@ -159,5 +188,6 @@ module.exports = {
     verifyTransaction,
     checkFileOrDirectoryExists,
     createLogFile,
-    deleteFile
+    deleteFile,
+    getJsonObjectFromJsonFile
 };
